@@ -286,7 +286,8 @@ def create_app(config="CTFd.config.Config"):
             utils.set_config("ctf_version", __version__)
 
         if not utils.get_config("ctf_theme"):
-            utils.set_config("ctf_theme", "core-beta")
+            # RTA template default: ship the branded pixo theme out of the box
+            utils.set_config("ctf_theme", "pixo")
 
         update_check(force=True)
 
