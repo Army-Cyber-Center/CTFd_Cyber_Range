@@ -24,15 +24,19 @@ services:
         default:
         internal:
 
-  nginx:
-    image: nginx:stable
-    restart: always
-    volumes:
-      - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
-    ports:
-      - 80:80
-    depends_on:
-      - ctfd
+  # nginx reverse proxy is provided by the HOST (infra-managed nginx on :80/:443
+  # → proxies to ctfd on 127.0.0.1:8000). The in-compose nginx is disabled to avoid
+  # a port-80 conflict. Re-enable this block for a standalone deployment without a
+  # host reverse proxy.
+  # nginx:
+  #   image: nginx:stable
+  #   restart: always
+  #   volumes:
+  #     - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
+  #   ports:
+  #     - 80:80
+  #   depends_on:
+  #     - ctfd
 
   db:
     image: mariadb:10.11
