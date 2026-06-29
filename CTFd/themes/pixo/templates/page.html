@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{# Event cover/hero: shown only on the home page ("/").
+	   DB first (Configs.ctf_banner via Admin > Config), else git-tracked static/img/brand/cover.png.
+	   NOTE: keep the home Page content (Admin > Pages) text-only so this is the sole banner. #}
+	{% if request.path == request.script_root + "/" %}
+	<div class="jumbotron hero-cover">
+		<div class="container text-center">
+			{% if Configs.ctf_banner %}
+			<img src="{{ url_for('views.files', path=Configs.ctf_banner) }}" class="img-fluid" alt="{{ Configs.ctf_name }}">
+			{% else %}
+			<img src="{{ url_for('views.themes', path='img/brand/cover.png') }}" class="img-fluid" alt="{{ Configs.ctf_name }}">
+			{% endif %}
+		</div>
+	</div>
+	{% endif %}
+	<div class="container">
+	{{ content | safe }}
+	</div>
+{% endblock %}
